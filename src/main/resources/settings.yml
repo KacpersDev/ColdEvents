@@ -5,10 +5,10 @@ INVENTORY:
   TITLE: "&b&lEvents"
   SIZE: 54
   OVERLAY: true
-  OVERLAY-ITEM: "STAINED_GLASS_PANE"
+  OVERLAY-ITEM: "BLUE_STAINED_GLASS_PANE"
   ITEMS:
     0:
-      ITEM: "SNOW_BALL"
+      ITEM: "SNOWBALL"
       NAME: "&b&lPaintball"
       LORE:
         - "  &fA game for Nicks this is apparently a sports"
@@ -31,6 +31,12 @@ EVENT:
       X: 0
       Y: 100
       Z: 0
+
+SPAWN:
+  WORLD: "world"
+  X: 0
+  Y: 100
+  Z: 0
 
 LOBBY:
   ITEM: "NETHER_STAR"

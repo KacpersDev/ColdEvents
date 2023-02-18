@@ -2,6 +2,8 @@ package me.kacper.command;
 
 import lombok.Getter;
 import me.kacper.Event;
+import me.kacper.event.EventManager;
+import me.kacper.event.EventStatus;
 import me.kacper.utils.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -23,9 +25,11 @@ public class EventCommand implements CommandExecutor {
 
     private final Event plugin;
     private Inventory inventory;
+    private final EventManager eventManager;
 
     public EventCommand(Event plugin) {
         this.plugin = plugin;
+        this.eventManager = new EventManager(this.plugin);
     }
 
     @Override
@@ -39,10 +43,29 @@ public class EventCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        createInventory(player);
-        applyItems();
-        overlay();
-        player.openInventory(inventory);
+
+        if (args.length == 0) {
+            createInventory(player);
+            applyItems();
+            overlay();
+            player.openInventory(inventory);
+        } else if (args[0].equalsIgnoreCase("join")) {
+            if (args.length == 1) {
+                usage(player);
+            } else {
+                String event = args[1];
+                if (!event.equalsIgnoreCase("gungame") || !event.equalsIgnoreCase("tnttag") || !event.equalsIgnoreCase("oitc")) {
+                    return false;
+                }
+
+                me.kacper.event.Event eventClass = eventManager.getClassByEventName(event);
+                if (eventClass.status() == EventStatus.GAME) {
+                    Bukkit.broadcastMessage("in game");
+                    return false;
+                }
+                eventClass.join(player.getUniqueId());
+            }
+        }
 
         return true;
     }
@@ -77,6 +100,12 @@ public class EventCommand implements CommandExecutor {
                     inventory.setItem(i, new ItemStack(Material.valueOf(this.plugin.getSettingsConfiguration().getString("INVENTORY.OVERLAY-ITEM"))));
                 }
             }
+        }
+    }
+
+    private void usage(Player player){
+        for (final String l : this.plugin.getLangConfiguration().getStringList("USAGE")) {
+            player.sendMessage(Color.translate(l));
         }
     }
 }

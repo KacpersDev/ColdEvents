@@ -13,4 +13,6 @@ public interface Event {
     void start();
     void join(UUID uuid);
     void stop();
+    Enum<EventStatus> status();
+    void updateStats(EventStatus status);
 }

@@ -1,6 +1,7 @@
 package me.kacper.event.impl;
 
 import me.kacper.event.Event;
+import me.kacper.event.EventStatus;
 import me.kacper.utils.Color;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,8 +18,10 @@ public class GunGame implements Event {
 
     private final me.kacper.Event plugin;
     private BukkitTask bukkitTask;
+    private BukkitRunnable game;
     public final static List<UUID> users = new ArrayList<>();
     public static boolean started = false;
+    private Enum<EventStatus> eventStatus = EventStatus.WAITING;
 
     public GunGame(me.kacper.Event plugin){
         this.plugin = plugin;
@@ -64,7 +67,18 @@ public class GunGame implements Event {
 
     @Override
     public void stop() {
+        updateStats(EventStatus.WAITING);
         users.clear();
+    }
+
+    @Override
+    public Enum<EventStatus> status() {
+        return eventStatus;
+    }
+
+    @Override
+    public void updateStats(EventStatus status) {
+        this.eventStatus = status;
     }
 
     @Override
@@ -91,8 +105,4 @@ public class GunGame implements Event {
         }.runTaskTimer(this.plugin, 0L, 20L);
     }
 
-    @Override
-    public void start() {
-        Bukkit.broadcastMessage("started");
-    }
 }

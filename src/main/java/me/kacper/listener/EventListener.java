@@ -38,10 +38,11 @@ public class EventListener implements Listener {
                     return;
                 }
 
-                if (Objects.requireNonNull(eventName).equalsIgnoreCase("gungame")) {
+                if (Objects.requireNonNull(eventName).equalsIgnoreCase("gungame") && !GunGame.started) {
                     GunGame gungame = new GunGame(this.plugin);
                     gungame.run();
                     gungame.join(player.getUniqueId());
+                    GunGame.started = true;
                 }
             }
         }
