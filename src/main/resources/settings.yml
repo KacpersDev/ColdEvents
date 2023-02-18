@@ -1,0 +1,44 @@
+EVENT-COUNTDOWN: 60
+MIN-PLAYERS: 1
+
+INVENTORY:
+  TITLE: "&b&lEvents"
+  SIZE: 54
+  OVERLAY: true
+  OVERLAY-ITEM: "STAINED_GLASS_PANE"
+  ITEMS:
+    0:
+      ITEM: "SNOW_BALL"
+      NAME: "&b&lPaintball"
+      LORE:
+        - "  &fA game for Nicks this is apparently a sports"
+        - "  &fwhere you shoot people without killing them"
+        - ""
+        - "&b&lInformation"
+        - "  &fState: &b%game_state%"
+        - "  &fRank: &b%rank%"
+      ENCHANTMENTS:
+        - "DURABILITY:10"
+      SLOT: 10
+      AMOUNT: 1
+      EVENT: "gungame"
+      PERMISSION: "cold.event.gungame"
+
+EVENT:
+  GUN-GAME:
+    SPAWN:
+      WORLD: "world"
+      X: 0
+      Y: 100
+      Z: 0
+
+LOBBY:
+  ITEM: "NETHER_STAR"
+  NAME: "&cLeave Event &7(Right Click)"
+  LORE:
+    - "&f&m------------------------------"
+    - "&7Right click to leave event."
+    - "&f&m------------------------------"
+  ENCHANTMENT: {}
+  SLOT: 8
+  AMOUNT: 1

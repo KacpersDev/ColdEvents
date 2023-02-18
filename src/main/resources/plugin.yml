@@ -1,0 +1,6 @@
+name: Event
+version: '${project.version}'
+main: me.kacper.Event
+api-version: 1.19
+commands:
+  event:
